@@ -1,5 +1,5 @@
 # starts the video recording tool
-npx playwright codegen https://practicesoftwaretesting.com/
+npx playwright codegen https://practicesoftwaretesting.com/contact
 
 git add .
 # adds latest code 

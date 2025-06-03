@@ -22,7 +22,6 @@ setup("Create customer 01 auth", async ({ page, context }) => {
     await registrationPage.goto();
     await registrationPage.registerAccount("test@test.com");
     await page.waitForTimeout(2000);
-    
   } else {
     await expect(page.getByTestId("nav-menu")).toContainText(fullname);
     await context.storageState({ path: customer01AuthFile });

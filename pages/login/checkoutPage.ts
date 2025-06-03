@@ -12,6 +12,9 @@ export class CheckoutPage {
   readonly confirmButton: Locator;
   readonly giftCardNumber: Locator;
   readonly validationCode: Locator;
+  readonly loginButton: Locator;
+  readonly emailField: Locator;
+  readonly passwordField: Locator;
   constructor(page: Page) {
     this.page = page;
     this.proceedToCheckoutButton1 = page.getByTestId("proceed-1");
@@ -24,6 +27,9 @@ export class CheckoutPage {
     this.confirmButton = page.getByTestId("finish");
     this.giftCardNumber = page.getByTestId("gift_card_number");
     this.validationCode = page.getByTestId("validation_code");
+    this.loginButton = page.getByTestId("login-submit");
+    this.emailField = page.getByTestId("email");
+    this.passwordField = page.getByTestId("password");
   }
 
   async goto() {
@@ -32,6 +38,14 @@ export class CheckoutPage {
 
   async checkoutflow(paymentMethod: string) {
     await this.proceedToCheckoutButton1.click();
+    if (await this.loginButton.isVisible()) {
+      console.log("customer not logged in");
+      await this.emailField.fill("test@test.com");
+      await this.passwordField.fill("Pa55wordstreet@");
+      await this.loginButton.click();
+    } else {
+      console.log("Customer is logged in");
+    }
     await this.proceedToCheckoutButton2.click();
     await this.stateField.fill("Mountains");
     await this.postCode.fill("L16 4PW");
@@ -39,5 +53,3 @@ export class CheckoutPage {
     await this.paymentDropdown.selectOption(paymentMethod);
   }
 }
-
-

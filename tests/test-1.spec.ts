@@ -15,7 +15,7 @@ test("test", async ({ page }) => {
   await page.locator('[data-test="message"]').click();
   await page.locator('[data-test="message"]').fill("hgdhgd");
   await page.locator('[data-test="contact-submit"]').click();
-  await page.locator('[data-test="message"]').click();
+  await page.locator('[data-test="ssage"]').click();
   await page
     .locator('[data-test="message"]')
     .fill("hgdhgdhdhshfsgfsfsgfsgfsgfsgfsgfsgfsgfsgfsgfsgfsgfsgfsgfsg");

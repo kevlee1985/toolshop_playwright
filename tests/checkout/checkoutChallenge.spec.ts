@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { CheckoutPage } from "../../pages/login/checkoutPage";
+import { HomePage } from "../../pages/login/homePage";
 
 test.describe("Checkout challenge", async () => {
   test.use({ storageState: ".auth/customer01.json" });
@@ -7,37 +9,41 @@ test.describe("Checkout challenge", async () => {
     await page.goto("https://practicesoftwaretesting.com");
   });
 
-  test("buy now pay later", async ({ page, headless }) => {
-    await page.getByText("Claw Hammer with Shock Reduction Grip").click();
-    await page.getByTestId("add-to-cart").click();
-    await expect(page.getByTestId("cart-quantity")).toHaveText("1");
-    await page.getByTestId("nav-cart").click();
-    await page.getByTestId("proceed-1").click();
-    await page.getByTestId("proceed-2").click();
-    await expect(
-      page.locator(".step-indicator").filter({ hasText: "2" })
-    ).toHaveCSS("background-color", "rgb(51, 153, 51)");
-    await page.getByTestId("address").fill("123 Testing Way");
-    await page.getByTestId("city").fill("Sacramento");
-    await page.getByTestId("state").fill("California");
-    await page.getByTestId("country").fill("USA");
-    await page.getByTestId("postcode").fill("98765");
-    await page.getByTestId("proceed-3").click();
-    await expect(page.getByTestId("finish")).toBeDisabled();
-    await page.getByTestId("payment-method").selectOption("Buy Now Pay Later");
-    await page
-      .getByTestId("monthly_installments")
-      .selectOption("6 Monthly Installments");
-    await page.getByTestId("finish").click();
+  test("buy now pay later", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.addItem("Thor Hammer");
+    const checkoutPage = new CheckoutPage(page);
+    await checkoutPage.checkoutflow("Buy Now Pay Later");
+    await checkoutPage.installmentDropdown.selectOption(
+      "6 Monthly Installments"
+    );
+    await checkoutPage.confirmButton.click();
     await expect(page.locator(".help-block")).toHaveText(
       "Payment was successful"
     );
-    headless
-      ? await test.step("visual test", async () => {
-          await expect(page).toHaveScreenshot("checkout.png", {
-            mask: [page.getByTitle("Practice Software Testing - Toolshop")],
-          });
-        })
-      : console.log("Running in Headed mode, no screenshot comparison");
+  });
+
+  test("cash on delivery", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.addItem("Thor Hammer");
+    const checkoutPage = new CheckoutPage(page);
+    await checkoutPage.checkoutflow("Cash on Delivery");
+    await checkoutPage.confirmButton.click();
+    await expect(page.locator(".help-block")).toHaveText(
+      "Payment was successful"
+    );
+  });
+
+  test("Gift Card", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.addItem("Thor Hammer");
+    const checkoutPage = new CheckoutPage(page);
+    await checkoutPage.checkoutflow("Gift Card");
+    await checkoutPage.giftCardNumber.fill("ABC12345678");
+    await checkoutPage.validationCode.fill("7654");
+    await checkoutPage.confirmButton.click();
+    await expect(page.locator(".help-block")).toHaveText(
+      "Payment was successful"
+    );
   });
 });

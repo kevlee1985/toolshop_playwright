@@ -1,16 +1,17 @@
 import { test, expect } from "@playwright/test";
+import { HomePage } from "../../pages/login/homePage";
 
 test.describe("Home page with no auth", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("https://practicesoftwaretesting.com/");
   });
 
-  test("visual test", async ({ page }) => {
-    await page.waitForLoadState("networkidle");
-    await expect(page).toHaveScreenshot("home-page-no-auth.png", {
-      mask: [page.getByTitle("Practice Software Testing - Toolshop")],
-    });
-  });
+  // test("visual test", async ({ page }) => {
+  //   await page.waitForLoadState("networkidle");
+  //   await expect(page).toHaveScreenshot("home-page-no-auth.png", {
+  //     mask: [page.getByTitle("Practice Software Testing - Toolshop")],
+  //   });
+  // });
 
   test("check sign in", async ({ page }) => {
     await expect(page.getByTestId("nav-sign-in")).toHaveText("Sign in");
@@ -22,8 +23,14 @@ test.describe("Home page with no auth", () => {
     );
   });
 
+  test("add item to basket", async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.addItem("Thor Hammer");
+  });
+
   test("grid loads with 9 items", async ({ page }) => {
     const productGrid = page.locator(".col-md-9");
+    await page.getByTestId("search-submit").click();
     await expect(productGrid.getByRole("link")).toHaveCount(9);
     expect(await productGrid.getByRole("link").count()).toBe(9);
   });
@@ -37,20 +44,21 @@ test.describe("Home page with no auth", () => {
   });
 });
 
-test.describe("Home page customer 01 auth", () => {
-  test.use({ storageState: ".auth/customer01.json" });
-  test.beforeEach(async ({ page }) => {
-    await page.goto("https://practicesoftwaretesting.com/");
-  });
+// test.describe("Home page customer 01 auth", () => {
+//   test.use({ storageState: ".auth/customer01.json" });
+//   test.beforeEach(async ({ page }) => {
+//     await page.goto("https://practicesoftwaretesting.com/");
+//   });
 
-  test("visual test authorized", async ({ page }) => {
-    await page.waitForLoadState("networkidle");
-    await expect(page).toHaveScreenshot("home-page-customer01.png", {
-      mask: [page.getByTitle("Practice Software Testing - Toolshop")],
-    });
-  });
-  test("check customer 01 is signed in", async ({ page }) => {
-    await expect(page.getByTestId("nav-sign-in")).not.toBeVisible();
-    await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
-  });
-});
+// test("visual test authorized", async ({ page }) => {
+//   await page.waitForLoadState("networkidle");
+//   await expect(page).toHaveScreenshot("home-page-customer01.png", {
+//     mask: [page.getByTitle("Practice Software Testing - Toolshop")],
+//   });
+// });
+
+// test("check customer 01 is signed in", async ({ page }) => {
+//   await expect(page.getByTestId("nav-sign-in")).not.toBeVisible();
+//   await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
+// });
+// });

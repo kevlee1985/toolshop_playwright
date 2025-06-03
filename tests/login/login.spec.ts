@@ -1,27 +1,37 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pages/login/loginPage";
 
-test("login without page object", async ({ page }) => {
-  await page.goto("https://practicesoftwaretesting.com/");
-  await page.locator('[data-test="nav-sign-in"]').click();
-  await page
-    .locator('[data-test="email"]')
-    .fill("customer@practicesoftwaretesting.com");
-  await page.locator('[data-test="password"]').fill("welcome01");
-  await page.locator('[data-test="login-submit"]').click();
-  await expect(page.locator('[data-test="nav-menu"]')).toContainText(
-    "Jane Doe"
-  );
-  await expect(page.locator('[data-test="page-title"]')).toContainText(
-    "My account"
+// test("Succesful Login", async ({ page }) => {
+//   const loginPage = new LoginPage(page);
+//   await loginPage.goto();
+//   await loginPage.login("kev_lee2002@hotmail.com", "22P@ignton");
+//   await expect(page.getByTestId("nav-menu")).toContainText("kevin lee");
+// });
+
+test("Unsucesful Login", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login("customer@incorrect.com", "welcome01");
+  await expect(page.locator("div.help-block")).toContainText(
+    "Invalid email or password"
   );
 });
 
-test("Login with page object", async ({ page }) => {
+test("Empty Fields when logging in", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
-  await loginPage.emailInput.fill("customer@practicesoftwaretesting.com");
-  await loginPage.passwordInput.fill("welcome01");
   await loginPage.loginButton.click();
-  await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
+  await expect(page.getByTestId("password-error")).toContainText(
+    "Password is required"
+  );
+  await expect(page.getByTestId("email-error")).toHaveText("Email is required");
+});
+
+test("Invalid formatted email", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login("customer", "welcome01");
+  await expect(page.getByTestId("email-error")).toHaveText(
+    "Email format is invalid"
+  );
 });

@@ -1,24 +1,25 @@
 import { type Locator, type Page } from "@playwright/test";
 
-export class LoginPage {
+export class ForgottenPasswordPage {
   readonly page: Page;
   readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly loginButton: Locator;
+  readonly forgotPasswordSubmit: Locator;
+  readonly emptyEmail: Locator;
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.getByTestId("email");
-    this.passwordInput = page.getByTestId("password");
-    this.loginButton = page.getByTestId("login-submit");
+    this.forgotPasswordSubmit = page.getByTestId("forgot-password-submit");
+    this.emptyEmail = page.getByTestId("email-error");
   }
 
   async goto() {
-    await this.page.goto("https://practicesoftwaretesting.com//auth/login");
+    await this.page.goto(
+      "https://practicesoftwaretesting.com//auth/forgot-password"
+    );
   }
 
-  async login(email: string, password: string) {
+  async resetPassword(email: string) {
     await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
-    await this.loginButton.click();
+    await this.forgotPasswordSubmit.click();
   }
 }

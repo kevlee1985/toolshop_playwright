@@ -1,0 +1,29 @@
+# starts the video recording tool
+npx playwright codegen https://practicesoftwaretesting.com/
+
+git add .
+# adds latest code 
+
+git push -u origin main
+# pushes to branch
+
+git commit -m "Initial commit to new repo"
+# commits to repo
+
+git remote -v 
+# sees what you can do to git repo
+
+npx playwright test --headed
+# runs all tests
+
+npx playwright test --headed --debug
+# runs all tests in debug mode
+
+npx playwright test reg.spec.ts --headed
+# runs a specific file
+
+npx playwright test login.spec.ts:55
+# runs specific test starting at line 55 in the file
+
+npx playwright show-report  
+# shows latest report

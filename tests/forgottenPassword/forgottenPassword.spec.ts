@@ -9,4 +9,13 @@ test.describe("Checkout challenge", async () => {
     await forgottenPassword.goto();
     await forgottenPassword.resetPassword("test@test.com");
   });
+
+  test("reset password empty email", async ({ page }) => {
+    const forgottenPassword = new ForgottenPasswordPage(page);
+    await forgottenPassword.goto();
+    await forgottenPassword.resetPassword("");
+    await forgottenPassword.emptyEmail;
+  });
 });
+
+

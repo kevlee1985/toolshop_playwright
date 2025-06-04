@@ -1,5 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
-
+import { TestData } from "../../utils/TestData";
 export class CheckoutPage {
   readonly page: Page;
   readonly proceedToCheckoutButton1: Locator;
@@ -40,15 +40,15 @@ export class CheckoutPage {
     await this.proceedToCheckoutButton1.click();
     if (await this.loginButton.isVisible()) {
       console.log("customer not logged in");
-      await this.emailField.fill("test@test.com");
-      await this.passwordField.fill("Pa55wordstreet@");
+      await this.emailField.fill(TestData.loginEmail);
+      await this.passwordField.fill(TestData.loginPassword);
       await this.loginButton.click();
     } else {
       console.log("Customer is logged in");
     }
     await this.proceedToCheckoutButton2.click();
-    await this.stateField.fill("Mountains");
-    await this.postCode.fill("L16 4PW");
+    await this.stateField.fill(TestData.defaultAddress.state);
+    await this.postCode.fill(TestData.defaultAddress.postalCode);
     await this.proceedToCheckoutButton3.click();
     await this.paymentDropdown.selectOption(paymentMethod);
   }

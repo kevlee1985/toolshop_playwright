@@ -9,7 +9,9 @@ export class ForgottenPasswordPage {
     this.page = page;
     this.emailInput = page.getByTestId("email");
     this.forgotPasswordSubmit = page.getByTestId("forgot-password-submit");
-    this.emptyEmail = page.getByTestId("email-error");
+    this.emptyEmail = page
+      .getByTestId("email-error")
+      .getByText("Email is required");;
   }
 
   async goto() {

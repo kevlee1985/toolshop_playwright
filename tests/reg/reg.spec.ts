@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { RegistrationPage } from "../../pages/login/registrationPage";
+import { TestData } from "../../utils/TestData";
 
 test("register", async ({ page }) => {
   const registrationPage = new RegistrationPage(page);
   await registrationPage.goto();
-  await registrationPage.registerAccount("test@test.com");
+  await registrationPage.registerAccount(TestData.loginEmail);
   await page.waitForTimeout(2000);
   const errorMsg = page.locator("div.help-block", {
     hasText: "A customer with this email address already exists.",

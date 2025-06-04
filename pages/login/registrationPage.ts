@@ -1,4 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
+import { TestData } from "../../utils/TestData";
 
 export class RegistrationPage {
   readonly page: Page;
@@ -36,17 +37,17 @@ export class RegistrationPage {
   }
 
   async registerAccount(email: string) {
-    await this.firstName.fill("test");
-    await this.lastName.fill("test");
-    await this.dob.fill("2000-12-01");
-    await this.street.fill("1 big street");
-    await this.postalCode.fill("l18 6gh");
-    await this.city.fill("liverpool");
-    await this.state.fill("merseyside");
-    await this.country.selectOption("AE");
-    await this.phone.fill("070000000000");
+    await this.firstName.fill(TestData.firstName);
+    await this.lastName.fill(TestData.lastName);
+    await this.dob.fill(TestData.dateOfBirth);
+    await this.street.fill(TestData.defaultAddress.street);
+    await this.postalCode.fill(TestData.defaultAddress.postalCode);
+    await this.city.fill(TestData.defaultAddress.city);
+    await this.state.fill(TestData.defaultAddress.state);
+    await this.country.selectOption(TestData.defaultAddress.countryCode);
+    await this.phone.fill(TestData.phoneNumber);
     await this.email.fill(email);
-    await this.password.fill("Pa55wordstreet@");
+    await this.password.fill(TestData.loginPassword);
     await this.registerSubmit.click();
   }
 }

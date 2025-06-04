@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { CheckoutPage } from "../../pages/login/checkoutPage";
 import { HomePage } from "../../pages/login/homePage";
+import { TestData } from "../../utils/TestData";
 
 test.describe("Checkout challenge", async () => {
   test.use({ storageState: ".auth/customer01.json" });
@@ -39,8 +40,8 @@ test.describe("Checkout challenge", async () => {
     await homePage.addItem("Thor Hammer");
     const checkoutPage = new CheckoutPage(page);
     await checkoutPage.checkoutflow("Gift Card");
-    await checkoutPage.giftCardNumber.fill("ABC12345678");
-    await checkoutPage.validationCode.fill("7654");
+    await checkoutPage.giftCardNumber.fill(TestData.giftCard.number);
+    await checkoutPage.validationCode.fill(TestData.giftCard.validationCode);
     await checkoutPage.confirmButton.click();
     await expect(page.locator(".help-block")).toHaveText(
       "Payment was successful"

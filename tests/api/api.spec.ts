@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { TestData } from "../../utils/TestData";
 
 test("GET /products", async ({ request }) => {
   const apiUrl = "https://api.practicesoftwaretesting.com";
@@ -14,8 +15,8 @@ test("POST /users/login", async ({ request }) => {
   const apiUrl = "https://api.practicesoftwaretesting.com";
   const response = await request.post(apiUrl + "/users/login", {
     data: {
-      email: "test@test.com",
-      password: "Pa55wordstreet@",
+      email: TestData.loginEmail,
+      password: TestData.loginPassword,
     },
   });
 

@@ -8,7 +8,7 @@ import { LoginPage } from "../../pages/login/loginPage";
 //   await expect(page.getByTestId("nav-menu")).toContainText("kevin lee");
 // });
 
-test("Unsucesful Login", async ({ page }) => {
+test("@smoke Unsucesful Login", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
   await loginPage.login("customer@incorrect.com", "welcome01");

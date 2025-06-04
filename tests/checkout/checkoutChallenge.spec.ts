@@ -10,7 +10,7 @@ test.describe("Checkout challenge", async () => {
     await page.goto("https://practicesoftwaretesting.com");
   });
 
-  test("buy now pay later", async ({ page }) => {
+  test("@smoke buy now pay later", async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.addItem("Thor Hammer");
     const checkoutPage = new CheckoutPage(page);

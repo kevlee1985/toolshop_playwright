@@ -10,7 +10,7 @@ test.describe("Checkout challenge", async () => {
     await forgottenPassword.resetPassword("test@test.com");
   });
 
-  test("reset password empty email", async ({ page }) => {
+  test("@smoke reset password empty email", async ({ page }) => {
     const forgottenPassword = new ForgottenPasswordPage(page);
     await forgottenPassword.goto();
     await forgottenPassword.resetPassword("");

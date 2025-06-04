@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { RegistrationPage } from "../../pages/login/registrationPage";
 import { TestData } from "../../utils/TestData";
 
-test("register", async ({ page }) => {
+test("@smoke register", async ({ page }) => {
   const registrationPage = new RegistrationPage(page);
   await registrationPage.goto();
   await registrationPage.registerAccount(TestData.loginEmail);

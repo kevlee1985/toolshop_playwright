@@ -35,7 +35,7 @@ test.describe("Home page with no auth", () => {
     expect(await productGrid.getByRole("link").count()).toBe(9);
   });
 
-  test("search for Thor Hammer", async ({ page }) => {
+  test("@smoke search for Thor Hammer", async ({ page }) => {
     const productGrid = page.locator(".col-md-9");
     await page.getByTestId("search-query").fill("Thor Hammer");
     await page.getByTestId("search-submit").click();

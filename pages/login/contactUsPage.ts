@@ -12,6 +12,12 @@ export class ContactUsPage {
   readonly submit: Locator;
   readonly largeMessageError: Locator;
   readonly successMessage: Locator;
+  readonly firstNameError: Locator;
+  readonly secondNameError: Locator;
+  readonly emailError: Locator;
+  readonly subjectError: Locator;
+  readonly messageError: Locator;
+
   constructor(page: Page) {
     this.page = page;
     this.firstName = page.getByTestId("first-name");
@@ -27,6 +33,11 @@ export class ContactUsPage {
     this.successMessage = page.getByText(
       "Thanks for your message! We will contact you shortly."
     );
+    this.messageError = page.getByTestId("message-error");
+    this.subjectError = page.getByTestId("subject-error");
+    this.emailError = page.getByTestId("email-error");
+    this.firstNameError = page.getByTestId("last-name-error");
+    this.secondNameError = page.getByTestId("first-name-error");
   }
 
   async goto() {

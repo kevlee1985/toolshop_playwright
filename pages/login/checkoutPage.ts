@@ -15,6 +15,7 @@ export class CheckoutPage {
   readonly loginButton: Locator;
   readonly emailField: Locator;
   readonly passwordField: Locator;
+
   constructor(page: Page) {
     this.page = page;
     this.proceedToCheckoutButton1 = page.getByTestId("proceed-1");

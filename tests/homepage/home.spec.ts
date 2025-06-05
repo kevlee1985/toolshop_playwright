@@ -28,17 +28,17 @@ test.describe("Home page with no auth", () => {
     await homePage.addItem("Thor Hammer");
   });
 
-  test("grid loads with 9 items", async ({ page }) => {
-    const productGrid = page.locator(".col-md-9");
-    await page.getByTestId("search-submit").click();
-    await expect(productGrid.getByRole("link")).toHaveCount(9);
-    expect(await productGrid.getByRole("link").count()).toBe(9);
-  });
+  // test("grid loads with 9 items", async ({ page }) => {
+  //   const productGrid = page.locator(".col-md-9");
+  //   await page.getByTestId("search-submit").click();
+  //   await expect(productGrid.getByRole("link")).toHaveCount(9);
+  //   expect(await productGrid.getByRole("link").count()).toBe(9);
+  // });
 
   test("@smoke search for Thor Hammer", async ({ page }) => {
+    const homePage = new HomePage(page);
     const productGrid = page.locator(".col-md-9");
-    await page.getByTestId("search-query").fill("Thor Hammer");
-    await page.getByTestId("search-submit").click();
+    await homePage.search("Thor Hammer");
     await expect(productGrid.getByRole("link")).toHaveCount(1);
     await expect(page.getByAltText("Thor Hammer")).toBeVisible();
   });

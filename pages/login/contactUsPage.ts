@@ -53,4 +53,6 @@ export class ContactUsPage {
     await this.chooseFile.setInputFiles("Untitled.txt");
     await this.submit.click();
   }
+
+  
 }

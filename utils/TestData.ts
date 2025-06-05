@@ -2,7 +2,7 @@
 
 export class TestData {
   // Login Credentials
-  static loginEmail = "test1@test.com";
+  static loginEmail = "test2@test.com";
   static loginPassword = "Pa55wordstreet@";
 
   static defaultAddress = {

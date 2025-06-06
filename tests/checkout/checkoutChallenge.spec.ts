@@ -3,7 +3,7 @@ import { CheckoutPage } from "../../pages/login/checkoutPage";
 import { HomePage } from "../../pages/login/homePage";
 import { TestData } from "../../utils/TestData";
 
-test.describe("Checkout challenge", async () => {
+test.describe("checkout scenarios", async () => {
   test.use({ storageState: ".auth/customer01.json" });
 
   test.beforeEach(async ({ page }) => {

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { ForgottenPasswordPage } from "../../pages/login/forgottenPassword";
 
-test.describe("Checkout challenge", async () => {
+test.describe("forgot password scenarios", async () => {
   test.use({ storageState: ".auth/customer01.json" });
 
   test("reset password", async ({ page }) => {

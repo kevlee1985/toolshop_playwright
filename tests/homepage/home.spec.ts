@@ -6,12 +6,12 @@ test.describe("Home page with no auth", () => {
     await page.goto("https://practicesoftwaretesting.com/");
   });
 
-  // test("visual test", async ({ page }) => {
-  //   await page.waitForLoadState("networkidle");
-  //   await expect(page).toHaveScreenshot("home-page-no-auth.png", {
-  //     mask: [page.getByTitle("Practice Software Testing - Toolshop")],
-  //   });
-  // });
+  test("visual test", async ({ page }) => {
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveScreenshot("home-page-no-auth.png", {
+      mask: [page.getByTitle("Practice Software Testing - Toolshop")],
+    });
+  });
 
   test("check sign in", async ({ page }) => {
     await expect(page.getByTestId("nav-sign-in")).toHaveText("Sign in");
@@ -27,13 +27,6 @@ test.describe("Home page with no auth", () => {
     const homePage = new HomePage(page);
     await homePage.addItem("Thor Hammer");
   });
-
-  // test("grid loads with 9 items", async ({ page }) => {
-  //   const productGrid = page.locator(".col-md-9");
-  //   await page.getByTestId("search-submit").click();
-  //   await expect(productGrid.getByRole("link")).toHaveCount(9);
-  //   expect(await productGrid.getByRole("link").count()).toBe(9);
-  // });
 
   test("@smoke search for Thor Hammer", async ({ page }) => {
     const homePage = new HomePage(page);

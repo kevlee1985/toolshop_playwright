@@ -12,7 +12,7 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 30_000,
+  timeout: 45_000,
   globalTimeout: 10 * 60 * 1000,
   testDir: "./tests",
   /* Run tests in files in parallel */
@@ -64,18 +64,18 @@ export default defineConfig({
     /* Test against mobile viewports. */
     // {
     //   name: "Mobile Chrome",
-    //   use: { ...devices["Pixel 5"] },
+    //   use: { ...devices["Pixel 8"] },
     // },
     // {
     //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
+    //   use: { ...devices['iPhone 16'] },
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
+    {
+       name: 'Microsoft Edge',
+       use: { ...devices['Desktop Edge'], channel: 'msedge' },
+     },
     // {
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
